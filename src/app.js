@@ -250,7 +250,7 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
   const number = formatPhoneNumber(phone)
 
   try {
-
+    const isThereChat = await findChatByCustomerPhone(userId, number)
     const officialWhatsAppConnection = await WhatsappOfficialApiConnectionModel.findOne({ userId })
 
     if (officialWhatsAppConnection && officialWhatsAppConnection.isActive) {
@@ -272,11 +272,12 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
         },
       )
 
+      await sendSocketEvent(isThereChat._id, senderName, message)
+
       return data
     }
 
     const verifyInstance = await getInstance(userId)
-    const isThereChat = await findChatByCustomerPhone(userId, number)
 
     if (verifyInstance && verifyInstance.status === 'open') {
       
@@ -368,6 +369,8 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
           { new: true },
         )
       }
+
+      await sendSocketEvent(isThereChat._id, senderName, message)
 
       return data
     }

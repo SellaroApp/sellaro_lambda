@@ -149,6 +149,24 @@ export const formatPhoneNumber = (pNumber) => {
     }
   }
 
+  export const sendSocketEvent = async (chatId, senderName, message) => {
+    const url = process.env.BACKEND_URL + '/whatsapp/socketevent'
+    const { data } = await axios.post(
+      url,
+      {
+        chatId,
+        senderName,
+        message
+      },
+      {
+      headers: {
+          apikey: `${process.env.WHATSAPP_EVOLUTION_API_TOKEN}`,
+        },
+      },
+    )
+
+    return data
+}
 
 export const replacePlaceholders = (message, lead) => {
   return message
