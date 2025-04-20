@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import LeadModel from './models/lead.model.js'
 import { WhatsappChatModel, WhatsAppMessagesToRetrySendModel, WhatsappOfficialApiConnectionModel, WhatsappOfficialTemplateModel } from './models/whatsapp.model.js'
 import AiAssistantManager from './models/aiAssistantManager.model.js'
-import { findChatByCustomerPhone, formatPhoneNumber, getInstance, replacePlaceholders } from './helpers/index.js'
+import { findChatByCustomerPhone, formatPhoneNumber, getInstance, replacePlaceholders, sendSocketEvent } from './helpers/index.js'
 import { AppError } from './classes/error.class.js'
 
 mongoose.connect(process.env.MONGODB_URI)

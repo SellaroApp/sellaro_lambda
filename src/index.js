@@ -1,7 +1,7 @@
+import { isAxiosError } from "axios";
 import { processAndSendMessageWhatsappInSqsQueue } from "./app.js";
 
 export const handler = async (event) => {
-
     try {
         let responseProcess = null;
 
@@ -19,7 +19,11 @@ export const handler = async (event) => {
         return response;
 
     } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) {
+            console.log(error.response?.data);
+        } else {
+            console.log(error);
+        }
         throw error;
     }
 };
