@@ -105,14 +105,19 @@ resource "aws_security_group" "lambda_sg" {
   }
 }
 
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../src"
+  output_path = "${path.module}/lambda.zip"
+}
 
 resource "aws_lambda_function" "lambda" {
   function_name    = "${var.environment}-message-whatsapp-consumer-lambda"
   role             = aws_iam_role.lambda_exec_role.arn
   handler          = "index.handler"
   runtime          = "nodejs18.x"
-  filename         = "${path.module}/lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambda.zip")
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   timeout          = 10
 
   vpc_config {

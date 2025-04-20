@@ -24,6 +24,6 @@ export const handler = async (event) => {
         } else {
             console.log(error);
         }
-        throw error;
+        // throw error;
     }
 };
