@@ -26,4 +26,7 @@ variable "wppUrl" {
   type        = string
 }
 
-
+variable "backendUrl" {
+  description = "Backend URL"
+  type        = string
+}

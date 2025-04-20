@@ -122,9 +122,10 @@ resource "aws_lambda_function" "lambda" {
 
   environment {
     variables = {
-      MONGODB_URI            = var.mongodbUri
-      WHATSAPP_EVOLUTION_URL = var.wppUrl
+      MONGODB_URI                  = var.mongodbUri
+      WHATSAPP_EVOLUTION_URL       = var.wppUrl
       WHATSAPP_EVOLUTION_API_TOKEN = var.wppApiToken
+      BACKEND_URL                  = var.backendUrl
     }
   }
 }
