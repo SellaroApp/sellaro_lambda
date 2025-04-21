@@ -8,10 +8,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 aws configure set cli_pager ""
 
 # Create SQS Queue
-awslocal sqs create-queue --queue-name wpp.fifo --attributes FifoQueue=true
+awslocal sqs delete-queue --queue-url http://localhost:4566/000000000000/wpp-dlq || true
+awslocal sqs create-queue --queue-name wpp-dlq
+awslocal sqs delete-queue --queue-url http://localhost:4566/000000000000/wpp.fifo || true
+awslocal sqs create-queue --queue-name wpp.fifo --attributes '{"FifoQueue": "true", "ContentBasedDeduplication": "true", "RedrivePolicy": "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:000000000000:wpp-dlq\"}"}'
 
 # Create SQS Queue
-awslocal sqs create-queue --queue-name crm.fifo --attributes FifoQueue=true
+awslocal sqs delete-queue --queue-url http://localhost:4566/000000000000/crm-dlq || true
+awslocal sqs create-queue --queue-name crm-dlq
+awslocal sqs delete-queue --queue-url http://localhost:4566/000000000000/crm.fifo || true
+awslocal sqs create-queue --queue-name crm.fifo --attributes '{"FifoQueue": "true", "ContentBasedDeduplication": "true", "RedrivePolicy": "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:000000000000:crm-dlq\"}"}'
 
 # Delete Lambda Function
 awslocal lambda delete-function --function-name wpp || true
