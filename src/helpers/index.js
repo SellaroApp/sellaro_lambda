@@ -5,9 +5,9 @@ import { AppError } from '../classes/error.class.js'
 export const formatPhoneNumber = (pNumber) => {
     let phoneCustomer = pNumber.replace(/\D/g, '')
   
-    if (phoneCustomer.length === 10 || phoneCustomer.length === 11) {
+    /*if (phoneCustomer.length === 10 || phoneCustomer.length === 11) {
       phoneCustomer = '55' + phoneCustomer
-    }
+    }*/
     return phoneCustomer
   }
   
