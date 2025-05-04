@@ -1,8 +1,8 @@
 {
-    "Variables": {
-        "MONGODB_URI": "mongodb://mongo:mongo@mongo:27017",
-        "WHATSAPP_EVOLUTION_URL": "http://wpp:8080",
-        "WHATSAPP_EVOLUTION_API_TOKEN": "B6D711FCDE4D4FD5936544120E713976",
-        "BACKEND_URL": "http://api"
-    }
+  "Variables": {
+    "MONGODB_URI": "mongodb://mongo:mongo@mongo:27017",
+    "WHATSAPP_EVOLUTION_URL": "http://wpp:8080",
+    "WHATSAPP_EVOLUTION_API_TOKEN": "B6D711FCDE4D4FD5936544120E713976",
+    "BACKEND_URL": "http://api:3001"
+  }
 }
