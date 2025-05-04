@@ -240,13 +240,14 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
   phone,
   senderName,
   userId,
+  numberId,
   sentBy,
   isLastMessage,
   threadId,
   assistantManagerId,
   templateId
 }) => {
-  console.log(`Processing and sending message to ${phone} from user ${userId}`)
+  console.log(`Processing and sending message to ${phone} from user ${userId} with number ${numberId}`)
   const number = formatPhoneNumber(phone)
 
   try {
@@ -277,13 +278,13 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
       return data
     }
 
-    const verifyInstance = await getInstance(userId)
+    const verifyInstance = await getInstance(numberId)
 
     if (verifyInstance && verifyInstance.status === 'open') {
       
       message = message.replace(/\[.*?\]\((https?:\/\/[^\s)]+)\)/g, '$1')
 
-      const url = `${process.env.WHATSAPP_EVOLUTION_URL}/message/sendText/${userId}`
+      const url = `${process.env.WHATSAPP_EVOLUTION_URL}/message/sendText/${numberId}`
 
       const { data } = await axios({
         method: 'POST',
