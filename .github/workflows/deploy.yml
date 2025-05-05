@@ -78,6 +78,9 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
 
+    - run: npm ci
+      working-directory: ./
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -103,6 +106,5 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        npm install
         terraform workspace select prod
         terraform apply -auto-approve -input=false -var-file=environments/prod/variables.tfvars
