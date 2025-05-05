@@ -24,8 +24,7 @@ After deploying LocalStack, please run the `setup-lambda.sh` script
 
 ## Debugging Lambda
 
-You can check lambda logs with `awslocal logs tail /aws/lambda/wpp`. If you get an error or nothing show up, please run `awslocal logs describe-log-groups` and confirm
-you see `/aws/lambda/wpp` in the logGroups array. If not, please run:
+You can check lambda logs with `awslocal logs tail /aws/lambda/wpp`. If you get an error or nothing show up, please run `awslocal logs describe-log-groups` and confirm you see `/aws/lambda/wpp` in the logGroups array. If not, please run:
 
 ```bash
 awslocal lambda invoke   --function-name wpp   --payload '{}'   response.json
@@ -33,6 +32,8 @@ cat response.json
 ```
 
 Check `response.json` content for a clue.
+
+It may be better to use `awslocal logs tail --follow /aws/lambda/wpp > logs.txt` and open `logs.txt` because the terminal may truncate the output.
 
 ## Debugging SQS
 
