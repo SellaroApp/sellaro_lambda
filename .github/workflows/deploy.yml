@@ -79,7 +79,7 @@ jobs:
       uses: actions/setup-node@v4
 
     - run: npm ci
-      working-directory: ./
+      working-directory: ./src
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
