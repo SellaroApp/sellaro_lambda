@@ -310,6 +310,7 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
       }
 
       if (data && sentBy !== 'assistant') {
+        
         if (isThereChat?.leadId) {
           await LeadModel.findByIdAndUpdate(isThereChat.leadId, {
             $set: {
@@ -318,6 +319,7 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
             },
           })
         }
+
         if (isThereChat) {
           await WhatsappChatModel.findByIdAndUpdate(
             isThereChat._id,
