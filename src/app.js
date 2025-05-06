@@ -246,7 +246,6 @@ export const processAndSendMessageWhatsappInSqsQueue = async ({
   threadId,
   assistantManagerId,
   templateId,
-  numberId
 }) => {
   console.log(`Processing and sending message to ${phone} from user ${userId} with number ${numberId}`)
   const number = formatPhoneNumber(phone)
